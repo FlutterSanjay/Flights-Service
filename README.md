@@ -29,7 +29,7 @@ Lets take a look inside the `src` folder
 - Inside the  `src/config` folder create a file named as `config.json` and write the following code.
 ```
  move to -> /src
- npx sequelize init
+ npx sequelize init --force
 ```
 - By executing the above command you will get migrations and seeders folder alog with config.json inside the config folder.
 - If you're setting up your development environment, then write the username of your db, password of your db and in dialect mention whatever db you are using for ex: mysql,mariadb etc.
