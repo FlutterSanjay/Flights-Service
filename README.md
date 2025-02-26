@@ -19,4 +19,34 @@ Lets take a look inside the `src` folder
 
 -`utils` -> Contains helper methods, error classes etc.
 
+- Inside the  `src/config` folder create a file named as `config.json` and write the following code.
+```
+{
+  "development": {
+    "username": "root",
+    "password": "1234567",
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
+```
+- If you're setting up your development environment, then write the username of your db, password of your db and in dialect mention whatever db you are using for ex: mysql,mariadb etc.
+
+-If you're setting up test or product environment ,make sure you also replace the host with the db url
+
 
