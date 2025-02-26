@@ -49,6 +49,8 @@ Lets take a look inside the `src` folder
 
 - If you're setting up test or product environment ,make sure you also replace the host with the db url
 
+## Sequelize Command
+
 ```
 Sequelize CLI [Node: 10.21.0, CLI: 6.0.0, ORM: 6.1.0]
 
