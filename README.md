@@ -28,6 +28,7 @@ Lets take a look inside the `src` folder
 
 - Inside the  `src/config` folder create a file named as `config.json` and write the following code.
 ```
+ move to -> /src
  npx sequelize init
 ```
 - By executing the above command you will get migrations and seeders folder alog with config.json inside the config folder.
@@ -69,5 +70,8 @@ Options:
 
 Please specify a command
 ```
-
+## To Run Server
+```
+nodemon index.js
+```
 
