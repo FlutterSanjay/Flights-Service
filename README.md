@@ -3,7 +3,9 @@ This is a base node js template , which anyone can use as it has been prepared b
 npm install
 ```
 ** Add Env File **
-``` PORT=3000```
+```
+PORT=3000 
+```
 
 
 `src` -> Inside the src folder all the actual source code regarding the project will reside, this wll not include any kind of tests.
