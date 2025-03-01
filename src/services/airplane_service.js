@@ -7,7 +7,6 @@ const airplaneRepository = new AirplaneRepository();
 async function createAirplanes(data) {
   try {
     const airplane = await airplaneRepository.create(data);
-
     return airplane;
   } catch (error) {
     if (error.name == "SequelizeValidationError") {
@@ -38,8 +37,32 @@ async function getAirplanes() {
   }
 }
 
-// async function destro
+async function getAirplane(id) {
+  try {
+    const airplane = await airplaneRepository.get(id);
+    return airplane;
+  } catch (e) {
+    throw new AppError(
+      "Cannot Fetch Data of all Airplanes",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
+// async function destroy
+async function destroyAirplane(id) {
+  try {
+    const response = await airplaneRepository.destroy(id);
+    return response;
+  } catch (e) {
+    throw new AppError(
+      "Cannot Delete the Airplane",
+      StatusCodes.INTERNAL_SERVER_ERROR
+    );
+  }
+}
 module.exports = {
   createAirplanes,
   getAirplanes,
+  getAirplane,
+  destroyAirplane,
 };

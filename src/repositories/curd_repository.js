@@ -1,6 +1,9 @@
 const { where } = require("sequelize");
 const { Logger } = require("../config");
-const { error } = require("winston");
+const { error, exitOnError } = require("winston");
+const AppError = require("../utils/errors/app_error");
+const { StatusCodes } = require("http-status-codes");
+const { message } = require("../utils/common/error_response");
 class CrudRepository {
   constructor(model) {
     this.model = model;
@@ -21,13 +24,8 @@ class CrudRepository {
   }
 
   async get(data) {
-    try {
-      const response = await this.model.findByPk(data);
-      return response;
-    } catch (e) {
-      Logger.error("Something went wrong in thr Curd Repo: Get");
-      throw error;
-    }
+    const response = await this.model.findByPk(data);
+    return response;
   }
 
   async getAll() {
@@ -41,18 +39,14 @@ class CrudRepository {
   }
 
   async update(id, data) {
-    try {
-      const response = await this.model.update(data, {
-        // data -> {col-val, ....}
-        where: {
-          id: id,
-        },
-      }); // return array
-      return response;
-    } catch (error) {
-      Logger.error("Something went wrong in thr Curd Repo: GetAll");
-      throw error;
-    }
+    const response = await this.model.update(data, {
+      // data -> {key-val, ....}
+      where: {
+        id: id,
+      },
+    });
+    // return array
+    return response;
   }
 }
 module.exports = { CrudRepository };
