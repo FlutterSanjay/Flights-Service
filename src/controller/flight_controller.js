@@ -1,6 +1,7 @@
 const { FlightService } = require("../services");
 const { StatusCodes } = require("http-status-codes");
 const { SuccessResponse, ErrorResponse } = require("../utils/common/index");
+const { DateTimeCompare } = require("../utils/index");
 
 /**
  * POST : /flights
@@ -17,22 +18,32 @@ const { SuccessResponse, ErrorResponse } = require("../utils/common/index");
  * }
  */
 async function createFlight(req, res) {
+  const timeString1 = req.body.arrivalTime.toString();
+  const timeString2 = req.body.departureTime.toString();
+  const dateTimeCompare = DateTimeCompare(timeString1, timeString2);
+
   try {
-    const flight = await FlightService.createFlight({
-      flightNumber: req.body.flightNumber,
-      airplaneId: req.body.airplaneId,
-      departureAirportId: req.body.departureAirportId,
-      arrivalAirportId: req.body.arrivalAirportId,
-      arrivalTime: req.body.arrivalTime,
-      departureTime: req.body.departureTime,
-      price: req.body.price,
-      boardingGate: req.body.boardingGate,
-      totalSeats: req.body.totalSeats,
-    });
+    if (dateTimeCompare) {
+      const flight = await FlightService.createFlight({
+        flightNumber: req.body.flightNumber,
+        airplaneId: req.body.airplaneId,
+        departureAirportId: req.body.departureAirportId,
+        arrivalAirportId: req.body.arrivalAirportId,
+        arrivalTime: req.body.arrivalTime,
+        departureTime: req.body.departureTime,
+        price: req.body.price,
+        boardingGate: req.body.boardingGate,
+        totalSeats: req.body.totalSeats,
+      });
 
-    SuccessResponse.data = flight;
+      SuccessResponse.data = flight;
 
-    return res.status(StatusCodes.CREATED).json(SuccessResponse);
+      return res.status(StatusCodes.CREATED).json(SuccessResponse);
+    } else {
+      ErrorResponse.error =
+        "Arrival Time should be Greater than Departure Time";
+      return res.status(StatusCodes.NOT_ACCEPTABLE).json(ErrorResponse);
+    }
   } catch (e) {
     ErrorResponse.error = e;
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(ErrorResponse);

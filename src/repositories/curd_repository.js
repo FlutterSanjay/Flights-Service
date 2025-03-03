@@ -10,7 +10,9 @@ class CrudRepository {
   }
 
   async create(data) {
+    console.log(JSON.stringify(data));
     const response = await this.model.create(data);
+    console.log(response);
     return response;
   }
 

@@ -7,6 +7,8 @@ const flightRepository = new FlightRepository();
 async function createFlight(data) {
   try {
     const flight = await flightRepository.create(data);
+    console.log(flight);
+
     return flight;
   } catch (error) {
     if (error.name == "SequelizeValidationError") {
