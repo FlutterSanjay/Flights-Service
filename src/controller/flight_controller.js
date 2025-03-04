@@ -50,6 +50,24 @@ async function createFlight(req, res) {
   }
 }
 
+async function getAllFlights(req, res) {
+  try {
+    const flights = await FlightService.getAllFlights(req.query);
+
+    if (flights.length == 0) {
+      SuccessResponse.message = "No Flight Found";
+      SuccessResponse.data = "0";
+      return res.status(StatusCodes.ACCEPTED).json(SuccessResponse);
+    }
+    SuccessResponse.message = "Flight Found";
+    SuccessResponse.data = flights;
+    return res.status(StatusCodes.ACCEPTED).json(SuccessResponse);
+  } catch (e) {
+    ErrorResponse.error = e;
+    return res.status(e.StatusCodes).json(ErrorResponse);
+  }
+}
 module.exports = {
   createFlight,
+  getAllFlights,
 };
